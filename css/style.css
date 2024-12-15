@@ -65,6 +65,9 @@ body {
 
 .navbar-brand {
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .logo {
@@ -78,6 +81,42 @@ body {
 
 .logo-blue {
     display: none;
+}
+
+.brand-slogan {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translate(-20px, 2px);
+    animation: slogan-appear 0.8s ease forwards;
+    white-space: nowrap;
+    position: relative;
+    padding-left: 15px;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.brand-slogan::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 1px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%);
+}
+
+@keyframes slogan-appear {
+    0% {
+        opacity: 0;
+        transform: translate(-20px, 2px);
+    }
+    100% {
+        opacity: 0.9;
+        transform: translate(0, 2px);
+    }
 }
 
 .navbar-menu {
@@ -95,12 +134,14 @@ body {
     transition: opacity 0.3s ease;
 }
 
-.nav-link:hover {
-    opacity: 1;
+.nav-link:hover,
+.nav-link:visited,
+.nav-link:active {
+    color: #fff;
 }
 
-.nav-link:visited {
-    color: #fff;
+.nav-link:hover {
+    opacity: 1;
 }
 
 .nav-button {
@@ -134,8 +175,26 @@ body {
 }
 
 @media (max-width: 768px) {
+    .navbar .container {
+        position: relative;
+    }
+
     .mobile-menu-toggle {
         display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 24px;
+        height: 18px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .mobile-menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: white;
+        transition: all 0.3s ease;
     }
 
     .navbar-menu {
@@ -148,17 +207,41 @@ body {
         padding: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         flex-direction: column;
-        align-items: center;
-        gap: 20px;
+        gap: 15px;
     }
 
     .navbar-menu.active {
         display: flex;
     }
 
-    .nav-button {
+    .nav-link {
         width: 100%;
         text-align: center;
+    }
+
+    .navbar-brand {
+        flex: 1;
+        justify-content: flex-start;
+    }
+
+    .brand-slogan {
+        font-size: 13px;
+        padding-left: 10px;
+    }
+
+    .brand-slogan::before {
+        height: 12px;
+    }
+
+    .logo {
+        height: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brand-slogan {
+        font-size: 12px;
+        padding-left: 8px;
     }
 }
 
@@ -428,11 +511,42 @@ footer {
     display: flex;
     align-items: center;
     gap: 1rem;
+    text-align: center;
 }
 
 .footer-logo {
     height: 30px;
     filter: brightness(0) invert(1);
+    max-width: 120px;
+    margin-bottom: 10px;
+}
+
+.separator {
+    color: #888;
+    font-size: 11px;
+    opacity: 0.6;
+    margin-left: 8px;
+}
+
+.separator a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.separator a:hover {
+    opacity: 0.9;
+}
+
+.beian-link {
+    color: #999;
+    font-size: 12px;
+    text-decoration: none;
+    margin-left: 8px;
+    opacity: 0.8;
+}
+
+.beian-link:hover {
+    opacity: 1;
 }
 
 .social-links {
