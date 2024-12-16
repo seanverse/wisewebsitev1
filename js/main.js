@@ -158,3 +158,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Email protection
+document.addEventListener('DOMContentLoaded', function() {
+    const emailElements = document.querySelectorAll('.email-protection');
+    emailElements.forEach(function(element) {
+        const email = element.dataset.email;
+        // 将邮箱地址转换为 HTML 实体
+        const encodedEmail = email.split('').map(char => {
+            const code = char.charCodeAt(0);
+            return `&#${code};`;
+        }).join('');
+        element.innerHTML = encodedEmail;
+        element.addEventListener('click', function() {
+            window.location.href = 'mailto:' + email;
+        });
+    });
+});

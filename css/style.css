@@ -687,6 +687,7 @@ body {
     gap: 0.5rem;
     color: rgba(255, 255, 255, 0.8);
     font-size: 0.9rem;
+    white-space: nowrap;
 }
 
 .contact-info li i {
@@ -1078,4 +1079,8 @@ h1, h2, h3, h4 {
     section {
         padding: 40px 20px;
     }
+}
+
+.email-protection {
+    display: inline-block;
 }
