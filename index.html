@@ -42,7 +42,7 @@
     <main>
         <section id="product" class="product-section">
             <div class="carousel-container">
-                <div class="carousel-slide active" style="background-image: url('assets/images/hero-bg-1.jpg')">
+                <div class="carousel-slide active" data-index="0" style="background-image: url('assets/images/hero-bg-1.jpg')">
                     <div class="product-content">
                         <h1 style="white-space: nowrap;">企业AI Agent应用开发与编排平台</h1>
                         <p>基于自研AI Agent编排引擎，提供低代码开发工具链，快速连接企业数据与业务系统。通过可视化编排降低AI应用开发门槛，实现从智能客服到业务智能管家的一站式解决方案，助力企业以更低成本打造专属AI应用，加速数智化转型升级。</p>
@@ -50,7 +50,7 @@
                         <button class="cta-button">免费体验</button>
                     </div>
                 </div>
-                <div class="carousel-slide" style="background-image: url('assets/images/hero-bg-2.jpg')">
+                <div class="carousel-slide" data-index="1" style="background-image: url('assets/images/hero-bg-2.jpg')">
                     <div class="product-content">
                         <h1 style="white-space: nowrap;">企业数智化转型专家咨询</h1>
                         <p>依托丰富的行业实践经验，结合AI Agent平台能力，为企业提供从规划到落地的一站式转型服务。通过AI技术与业务深度融合，实现30%以上效能提升。专业顾问团队全程护航，确保数智化升级平稳落地，打造企业持续创新增长的核心竞争力。</p>
@@ -58,9 +58,11 @@
                         <button class="cta-button">免费咨询</button>
                     </div>
                 </div>
-                <div class="carousel-indicators">
-                    <div class="carousel-indicator active"></div>
-                    <div class="carousel-indicator"></div>
+                <div class="carousel-controls">
+                    <div class="carousel-indicators">
+                        <button class="indicator active" data-slide="0"></button>
+                        <button class="indicator" data-slide="1"></button>
+                    </div>
                 </div>
             </div>
         </section>

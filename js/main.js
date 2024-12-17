@@ -1,82 +1,123 @@
-// Hero Section Carousel
+// 轮播图功能
 document.addEventListener('DOMContentLoaded', function() {
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.carousel-slide');
-    const indicators = document.querySelectorAll('.carousel-indicator');
-    const totalSlides = slides.length;
+    const carousel = document.querySelector('.carousel-container');
+    if (!carousel) return;  // 如果页面没有轮播图则退出
 
-    function showSlide(index) {
-        slides.forEach(slide => {
-            slide.classList.remove('active');
-            slide.style.opacity = '0';
-            slide.style.visibility = 'hidden';
-        });
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const indicators = carousel.querySelectorAll('.indicator');
+    let currentSlide = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let isTransitioning = false;
+    
+    // 自动轮播 - 调整为6秒
+    let autoPlayInterval = setInterval(nextSlide, 6000);
+    
+    // 切换到指定幻灯片
+    function goToSlide(index) {
+        if (isTransitioning || currentSlide === index) return;
+        isTransitioning = true;
         
-        indicators.forEach(indicator => indicator.classList.remove('active'));
-        
-        currentSlide = (index + totalSlides) % totalSlides;
-        
+        slides[currentSlide].classList.remove('active');
+        indicators[currentSlide].classList.remove('active');
+        currentSlide = index;
         slides[currentSlide].classList.add('active');
-        slides[currentSlide].style.opacity = '1';
-        slides[currentSlide].style.visibility = 'visible';
         indicators[currentSlide].classList.add('active');
         
-        updatePageIndicator();
+        // 动画完成后重置状态
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 800); // 与CSS过渡时间匹配
     }
-
+    
+    // 下一张幻灯片
     function nextSlide() {
-        showSlide(currentSlide + 1);
+        if (isTransitioning) return;
+        const next = (currentSlide + 1) % slides.length;
+        goToSlide(next);
     }
-
+    
+    // 上一张幻灯片
     function prevSlide() {
-        showSlide(currentSlide - 1);
-    }
-
-    // Auto advance slides
-    let slideInterval = setInterval(nextSlide, 5000);
-
-    // Reset interval when manually changing slides
-    function resetSlideInterval() {
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, 5000);
-    }
-
-    // Add event listeners to carousel navigation buttons
-    const nextBtn = document.querySelector('.carousel-nav .next-btn');
-    const prevBtn = document.querySelector('.carousel-nav .prev-btn');
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-            resetSlideInterval();
-        });
+        if (isTransitioning) return;
+        const prev = (currentSlide - 1 + slides.length) % slides.length;
+        goToSlide(prev);
     }
     
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            resetSlideInterval();
-        });
+    // 重置自动播放
+    function resetAutoPlay() {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(nextSlide, 6000);
     }
-
-    // Add event listeners to indicators
+    
+    // 指示器点击事件 - 添加触摸支持
     indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            showSlide(index);
-            resetSlideInterval();
-        });
-    });
+        // 处理点击事件
+        indicator.addEventListener('click', handleIndicatorInteraction);
+        // 处理触摸事件
+        indicator.addEventListener('touchend', handleIndicatorInteraction);
 
-    // Update page indicator
-    function updatePageIndicator() {
-        const indicator = document.querySelector('.page-indicator');
-        if (indicator) {
-            indicator.textContent = `0${currentSlide + 1}/02`;
+        function handleIndicatorInteraction(e) {
+            e.preventDefault(); // 防止触摸事件触发点击
+            if (isTransitioning) return;
+            clearInterval(autoPlayInterval);
+            goToSlide(index);
+            resetAutoPlay();
         }
-    }
-
-    // Initialize the carousel
-    showSlide(0);
+    });
+    
+    // 触摸事件处理
+    let isSwiping = false;
+    let touchStartTime;
+    let touchEndTime;
+    
+    carousel.addEventListener('touchstart', (e) => {
+        if (isTransitioning) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartTime = new Date().getTime();
+        clearInterval(autoPlayInterval);
+        isSwiping = true;
+    }, { passive: true });
+    
+    carousel.addEventListener('touchmove', (e) => {
+        if (!isSwiping) return;
+        touchEndX = e.touches[0].clientX;
+        // 防止页面滚动
+        if (Math.abs(touchEndX - touchStartX) > 10) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    carousel.addEventListener('touchend', (e) => {
+        if (!isSwiping) return;
+        
+        touchEndTime = new Date().getTime();
+        const swipeTime = touchEndTime - touchStartTime;
+        const swipeDistance = touchEndX - touchStartX;
+        
+        // 快速滑动或滑动距离足够大时触发切换
+        if (Math.abs(swipeDistance) > 30 || (Math.abs(swipeDistance) > 10 && swipeTime < 300)) {
+            if (swipeDistance > 0) {
+                prevSlide();
+            } else {
+                nextSlide();
+            }
+        }
+        
+        isSwiping = false;
+        resetAutoPlay();
+    });
+    
+    // 鼠标悬停时暂停自动播放
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(autoPlayInterval);
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        if (!isTransitioning) {
+            resetAutoPlay();
+        }
+    });
 });
 
 // Mobile menu toggle

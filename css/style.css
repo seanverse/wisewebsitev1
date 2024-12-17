@@ -386,7 +386,6 @@ h1, h2, h3, h4 {
     height: 100%;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.8s ease-in-out;
     display: flex;
     align-items: center;
     padding: 0;
@@ -394,20 +393,16 @@ h1, h2, h3, h4 {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    -webkit-transform: translate3d(0,0,0);
+    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+    will-change: opacity, visibility;
     transform: translate3d(0,0,0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    will-change: transform, opacity;
-    perspective: 1000;
-    -webkit-perspective: 1000;
 }
 
 .carousel-slide.active {
     opacity: 1;
     visibility: visible;
-    -webkit-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
 }
 
 .carousel-slide::before {
@@ -499,6 +494,50 @@ h1, h2, h3, h4 {
 .carousel-nav button:hover {
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.5);
+}
+
+.carousel-controls {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-indicators {
+    display: flex;
+    gap: 12px;
+    padding: 10px;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: #ffffff;
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .carousel-controls {
+        bottom: 20px;
+    }
+    
+    .indicator {
+        width: 8px;
+        height: 8px;
+    }
 }
 
 @media (max-width: 768px) {
