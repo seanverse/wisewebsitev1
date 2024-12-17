@@ -1,10 +1,10 @@
+/* 全局变量定义 */
 :root {
     --primary-color: #1e4d43;
     --secondary-color: #2a7264;
     --text-color: #333333;
     --background-color: #ffffff;
     --dark-bg: #1e2d3b;
-    /* 添加字体大小变量以保持一致性 */
     --font-size-xl: 2.5rem;    /* 40px */
     --font-size-lg: 1.75rem;   /* 28px */
     --font-size-md: 1.125rem;  /* 18px */
@@ -12,6 +12,7 @@
     --font-size-sm: 0.875rem;  /* 14px */
 }
 
+/* 基础样式 */
 * {
     margin: 0;
     padding: 0;
@@ -25,7 +26,7 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     overflow-x: hidden;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-md);
 }
 
 .container {
@@ -33,6 +34,93 @@ body {
     margin: 0 auto;
     padding: 0 20px;
 }
+
+/* 通用文本样式 */
+p {
+    word-wrap: break-word;
+    word-break: normal;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    word-wrap: break-word;
+    line-height: 1.4;
+}
+
+/* 动画定义 */
+@keyframes slogan-appear {
+    0% {
+        opacity: 0;
+        transform: translate(-20px, 2px);
+    }
+    100% {
+        opacity: 0.9;
+        transform: translate(0, 2px);
+    }
+}
+
+/* 通用媒体查询 */
+@media (max-width: 1024px) {
+    :root {
+        --font-size-xl: 2.25rem;
+        --font-size-lg: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --font-size-xl: 2rem;
+        --font-size-lg: 1.375rem;
+        --font-size-md: 1rem;
+    }
+    
+    body {
+        font-size: var(--font-size-md);
+        line-height: 1.5;
+    }
+    
+    .container {
+        padding: 0 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --font-size-xl: 1.75rem;
+        --font-size-lg: 1.25rem;
+    }
+    
+    body {
+        font-size: 14px;
+    }
+}
+
+/* 特殊媒体查询 */
+@media (hover: none) {
+    .nav-link {
+        padding: 8px 12px;
+    }
+    
+    .nav-link:hover {
+        opacity: 0.85;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #f5f5f5;
+        --background-color: #121212;
+    }
+}
+
+@media print {
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+}
+
+/* H5元素样式定义 */
 
 /* Navbar Styles */
 .navbar {
@@ -108,17 +196,6 @@ body {
     transform: translateY(-50%);
 }
 
-@keyframes slogan-appear {
-    0% {
-        opacity: 0;
-        transform: translate(-20px, 2px);
-    }
-    100% {
-        opacity: 0.9;
-        transform: translate(0, 2px);
-    }
-}
-
 .navbar-menu {
     display: flex;
     align-items: center;
@@ -177,7 +254,7 @@ body {
 @media (max-width: 768px) {
     /* 修改 body 元素的字体大小和行高 */
     body {
-        font-size: 16px; /* 修改字体大小为 16px */
+        font-size: var(--font-size-md); /* 修改字体大小为 16px */
         line-height: 1.5; /* 修改行高为 1.5 */
     }
 
@@ -743,6 +820,10 @@ body {
     color: white;
 }
 
+.email-protection {
+    display: inline-block;
+}
+
 .contact-info li {
     display: flex;
     align-items: center;
@@ -1059,86 +1140,55 @@ html {
     scroll-padding-top: 80px; /* 与header高度相同 */
 }
 
-/* 通用文本样式 */
-p {
-    word-wrap: break-word;
-    word-break: normal;
-    line-height: 1.6;
-}
-
-/* 标题文字处理 */
-h1, h2, h3, h4 {
-    word-wrap: break-word;
-    line-height: 1.4;
-}
-
-/* 客户评价文字优化 */
-.testimonial-card p {
-    text-align: justify;
-    word-break: break-word;
-    line-height: 1.8;
-}
-
-/* 产品内容文字优化 */
-.product-content p {
-    max-width: 100%;
-    text-align: justify;
-    word-break: break-word;
-}
-
 /* 移动端特殊处理 */
 @media screen and (max-width: 768px) {
     .product-content {
-        padding: 20px;
+        padding: 1.25rem;
     }
 
     .product-content p {
-        font-size: 14px;
+        font-size: 1.1rem;
         line-height: 1.6;
-        margin: 10px 0;
+        margin: 0.625rem 0;
     }
 
     .service-card {
-        padding: 15px;
+        padding: 1rem;
     }
 
     .service-card p {
-        font-size: 14px;
+        font-size: 1.1rem;
         line-height: 1.6;
     }
 
     .testimonial-card {
-        padding: 15px;
+        padding: 1rem;
     }
 
     .testimonial-card p {
-        font-size: 13px;
+        font-size: 1rem;
         line-height: 1.7;
     }
 
     /* 标题在移动端的大小调整 */
     h1 {
-        font-size: 24px;
+        font-size: 1.75rem;
         line-height: 1.3;
     }
 
     h2 {
-        font-size: 20px;
+        font-size: 1.5rem;
         line-height: 1.3;
     }
 
     h3 {
-        font-size: 18px;
+        font-size: 1.25rem;
         line-height: 1.3;
     }
 
     /* 段落间距优化 */
     p {
-        margin-bottom: 12px;
+        margin-bottom: 0.75rem;
     }
     
-}
-
-.email-protection {
-    display: inline-block;
 }
