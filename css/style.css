@@ -21,12 +21,22 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+}
+
 body {
     font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", "Noto Sans", "Noto Sans CJK SC", sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    overflow-x: hidden;
     font-size: var(--font-size-md);
+    min-width: 100%;
+    max-width: 100%;
 }
 
 .container {
@@ -348,45 +358,56 @@ h1, h2, h3, h4 {
     color: white;
     overflow: hidden;
     padding-top: 68px;
-    width: 100vw;
+    width: 100%;
     margin: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
 }
 
 .carousel-container {
     position: relative;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background-color: #4E6EF1;
     overflow: hidden;
     margin: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
 }
 
 .carousel-slide {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
+    right: 0;
+    width: 100%;
     height: 100%;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+    transition: opacity 0.8s ease-in-out;
     display: flex;
     align-items: center;
     padding: 0;
+    margin: 0;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    margin: 0;
-    transform: translateX(0);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+    perspective: 1000;
+    -webkit-perspective: 1000;
 }
 
 .carousel-slide.active {
     opacity: 1;
     visibility: visible;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
 }
 
 .carousel-slide::before {
@@ -413,7 +434,7 @@ h1, h2, h3, h4 {
     margin-left: 5%;
     opacity: 0;
     transform: translateY(20px);
-    transition: all 0.5s ease-out 0.3s;
+    transition: all 0.6s ease-out 0.3s;
 }
 
 .carousel-slide.active .product-content {
@@ -483,24 +504,28 @@ h1, h2, h3, h4 {
 @media (max-width: 768px) {
     .product-section {
         padding-top: 60px;
-        width: 100vw;
-        left: 50%;
-        transform: translateX(-50%);
+        width: 100%;
+        left: 0;
     }
     
     .carousel-slide {
-        width: 100vw;
+        width: 100%;
         min-height: 100vh;
         height: auto;
         padding: 0;
+        left: 0;
+        margin: 0;
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
     }
     
     .carousel-container {
-        width: 100vw;
+        width: 100%;
         height: auto;
         min-height: 100vh;
-        left: 50%;
-        transform: translateX(-50%);
+        left: 0;
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
     }
     
     .product-content {
