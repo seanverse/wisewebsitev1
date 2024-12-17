@@ -110,6 +110,19 @@
             font-size: 0.9rem;
             color: #a0aec0;
             padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .company-name {
+            white-space: nowrap;
+        }
+
+        .company-slogan {
+            white-space: nowrap;
+            color: #718096;
         }
 
         .update-date {
@@ -219,13 +232,14 @@
 
         <section>
             <h2>9. 联系方式</h2>
-            <p>如有任何问题，请通过官网的联系方式联系我们。</p>            
+            <p>如有任何问题，请通过我们官网的联系方式联系我们。</p>            
         </section>
     </main>
 
     <footer>
         <div class="company-info">
-            &copy; 2024 厦门般若云科技有限公司 WisePath Technology Co., Ltd.
+            <div class="company-name">&copy; 2024 厦门般若云科技有限公司</div>
+            <div class="company-slogan">企业AI提效解决方案 | AIAgent定制服务</div>
         </div>
     </footer>
 </body>
